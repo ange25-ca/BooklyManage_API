@@ -15,5 +15,5 @@ app.use('/', routes);
 // Puerto en el que escucha el servidor
 const PORT = process.env.PORT || 3002;
 app.listen(PORT, () => {
-    console.log(`Servidor iniciado en http://localhost:${PORT}/`);
+    console.log(`Servidor iniciado en http://localhost:${PORT}`);
 });
