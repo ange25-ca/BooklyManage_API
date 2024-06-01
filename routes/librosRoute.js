@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-//const { verificarToken } = require('../middlewares/autenticador');
+const { verificarToken } = require('../middlewares/autenticador');
 const librosController = require('../controllers/librosController');
 
 // Rutas para los productos

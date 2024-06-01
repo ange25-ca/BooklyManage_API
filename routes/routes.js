@@ -6,7 +6,7 @@ const router = express.Router();
 const librosRoute = require('./librosRoute');
 const usuarioRoute = require('./usuarioRoute');
 
-// Rutas específicas para productos
+// Rutas específicas para libros
 router.use('/libros', librosRoute);
 
 // Rutas específicas para usuarios
