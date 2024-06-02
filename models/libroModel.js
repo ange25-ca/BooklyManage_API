@@ -1,3 +1,4 @@
+//const { agregarLibro } = require('../controllers/librosController');
 const { obtenerConexion } = require('../database/conexion');
 
 async function obtenerTodos() {
@@ -29,7 +30,21 @@ async function obtenerPorId(id) {
     }
 }
 
+async function agregarLibro(titulo, autor, ISBN, genero, fecha_publi, descripcion, imagen) {
+    const conexion = await obtenerConexion();
+    try {
+        await conexion.query('INSERT INTO libros (titulo, autor, ISBN, genero, fecha_publi, descripcion, imagen) VALUES (?, ?, ?, ?, ?, ?, ?)', [titulo, autor, ISBN, genero, fecha_publi, descripcion, imagen]);
+        return { titulo, autor, ISBN, genero, fecha_publi, descripcion, imagen }; // Devuelve los datos del libro agregado
+    } catch (error) {
+        console.error('Error al agregar el libro:', error.message);
+        throw error;
+    } finally {
+        conexion.release();
+    }
+}
+
 module.exports = {
     obtenerTodos,
-    obtenerPorId
+    obtenerPorId,
+    agregarLibro
 };
