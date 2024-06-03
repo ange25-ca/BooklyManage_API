@@ -82,8 +82,8 @@ if (!fs.existsSync(uploadDir)) {
 app.use('/', routes);
 
 // Aplica multer middleware a la ruta específica
-const agregarLibroRouter = require('./routes/agregar-libro');
-app.use('/agregar-libro', upload.single('imagen'), agregarLibroRouter);
+//const agregarLibroRouter = require('./routes/agregar-libro');
+//app.use('/agregar-libro', upload.single('imagen'), agregarLibroRouter);
 
 // Puerto en el que escucha el servidor
 const PORT = process.env.PORT || 3002;

@@ -1,13 +1,10 @@
-/*const express = require('express');
+const express = require('express');
 const router = express.Router();
-const { upload, agregarLibroController } = require('../controllers/agregarLibroController');
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
+const librosController = require('../controllers/librosController');
 
-// Usa el middleware de multer para manejar la subida de archivos en la ruta POST /
-router.post('/', upload.single('imagen'), agregarLibroController);
+// Rutas para los 
+router.post('/', upload.single('imagen'), librosController.agregarLibro);
 
-module.exports = router;*/
-
-
-
-
-
+module.exports = router;

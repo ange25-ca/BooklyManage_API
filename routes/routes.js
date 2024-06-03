@@ -5,7 +5,6 @@ const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 const librosController = require('../controllers/librosController');
 
-router.post('/ruta', upload.single('imagen'), librosController.agregarLibro);
 
 // Importar rutas específicas
 const librosRoute = require('./librosRoute');

@@ -3,6 +3,7 @@ const router = express.Router();
 const librosService = require('../services/librosService');
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
+const libroModel = require('../models/libroModel');
 
 
 async function obtenerTodos(req, res) {
@@ -31,16 +32,22 @@ async function obtenerPorId(req, res) {
 async function agregarLibro(req, res) {
     try {
         const { titulo, autor, ISBN, genero, fecha_publi, descripcion } = req.body;
-        const imagen = req.file.path; // Suponiendo que la imagen está adjunta en el campo 'file'
+        
+        // Asegurarse de que req.file existe y tiene un path
+        if (!req.file) {
+            return res.status(400).send('No se ha subido ninguna imagen.');
+        }
+        const imagenPath = req.file.path; // Obtener la ruta del archivo subido por Multer
+        
+        // Llamar a la función del modelo para agregar el libro a la base de datos
+        const resultado = await libroModel.agregarLibro(titulo, autor, ISBN, genero, fecha_publi, descripcion, imagenPath);
 
-        // Llamar al modelo para agregar el libro
-        const nuevoLibro = await libroModel.agregarLibro(titulo, autor, ISBN, genero, fecha_publi, descripcion, imagen);
-
-        // Enviar una respuesta al cliente
-        res.status(201).json({ mensaje: 'Libro agregado correctamente', libro: nuevoLibro });
+        // Envía una respuesta con el resultado
+        res.status(201).send(resultado);
     } catch (error) {
+        // Maneja los errores y envía una respuesta de error
         console.error('Error al agregar el libro:', error);
-        res.status(500).json({ error: 'Error al agregar el libro' });
+        res.status(500).send('Error al agregar el libro');
     }
 }
 module.exports = {

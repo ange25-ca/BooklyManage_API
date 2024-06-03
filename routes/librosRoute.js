@@ -8,6 +8,6 @@ const librosController = require('../controllers/librosController');
 // Rutas para los productos
 router.get('/', librosController.obtenerTodos);
 router.get('/:id', librosController.obtenerPorId);
-router.post('/ruta', upload.single('imagen'), librosController.agregarLibro);
+router.post('/agregar-libro', upload.single('imagen'), librosController.agregarLibro);
 
 module.exports = router;
