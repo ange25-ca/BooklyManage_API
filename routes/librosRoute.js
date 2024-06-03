@@ -9,5 +9,6 @@ const librosController = require('../controllers/librosController');
 router.get('/', librosController.obtenerTodos);
 router.get('/:id', librosController.obtenerPorId);
 router.post('/agregar-libro', upload.single('imagen'), librosController.agregarLibro);
+router.delete('/:usuarioId/:LibroId', librosController.eliminarLibro);
 
 module.exports = router;

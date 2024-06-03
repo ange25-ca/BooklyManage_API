@@ -60,16 +60,15 @@ dotenv.config();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Configura multer para manejar la subida de archivos
+// Configurar multer para manejar la carga de archivos
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'uploads/');
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/'); // Carpeta donde se guardarán las imágenes
   },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname);
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname)); // Nombre único para cada archivo
   }
 });
-
 const upload = multer({ storage: storage });
 
 // Verificar que la carpeta 'uploads/' existe

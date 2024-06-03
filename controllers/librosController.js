@@ -50,9 +50,21 @@ async function agregarLibro(req, res) {
         res.status(500).send('Error al agregar el libro');
     }
 }
+
+async function eliminarLibro(req, res) {
+    const {usuarioId, LibroId} = req.params;
+    try{
+        await librosService.eliminarLibro(usuarioId, LibroId);
+        res.status(200).json({message: 'Libro eliminado del catalogo'});
+    } catch (error) {
+        console.error('Error al eliminar el libro', error.message);
+        res.status(500).json({message: 'Error al eliminar el producto del carrito'});
+    } 
+}
 module.exports = {
     obtenerTodos,
     obtenerPorId,
-    agregarLibro
+    agregarLibro,
+    eliminarLibro
 };
 

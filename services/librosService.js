@@ -17,11 +17,16 @@ async function agregarLibro(titulo, autor, ISBN, genero, fecha_publi, descripcio
     } catch (error) {
       console.error('Error al agregar el libro en el servicio:', error);
       throw error;
-    }
   }
+}
+
+async function eliminarLibro(usuarioId, LibroId){
+  await libroModel.eliminarLibro(usuarioId, LibroId);
+}
 
 module.exports = {
     obtenerTodos,
     obtenerPorId,
-    agregarLibro
+    agregarLibro,
+    eliminarLibro
 };

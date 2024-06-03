@@ -43,8 +43,54 @@ async function agregarLibro(titulo, autor, ISBN, genero, fecha_publi, descripcio
     }
 }
 
+
+/*async function eliminarLibro(usuarioId, libroId){
+    const conexion = await obtenerConexion();
+    try {
+        await conexion.query(
+            `DELETE FROM libro WHERE id = ? AND usuario_id = ?`,
+            [libroId, usuarioId]
+        );
+        console.log('Producto eliminado del carrito correctamente');
+    } catch (error) {
+        console.error('Error al eliminar el libro del catalogo:', error.message);
+        throw error;
+    } finally {
+        conexion.release();
+    }
+}*///No elimina en la bd 
+
+async function eliminarLibro(usuarioId, libroId) {
+    const conexion = await obtenerConexion();
+    try {
+        console.log('Usuario ID:', usuarioId);
+        console.log('Libro ID:', libroId);
+
+        const [results] = await conexion.query(
+            `DELETE FROM libro WHERE id = ? AND (usuario_id = ? OR usuario_id IS NULL)`,
+            [libroId, usuarioId]
+        );
+
+        console.log('Resultado de la eliminación:', results);
+
+        if (results.affectedRows > 0) {
+            console.log('Libro eliminado correctamente');
+        } else {
+            console.log('No se encontró el libro para eliminar');
+        }
+    } catch (error) {
+        console.error('Error al eliminar el libro:', error.message);
+        throw error;
+    } finally {
+        conexion.end(); // Cierra la conexión
+    }
+}
+
+
+
 module.exports = {
     obtenerTodos,
     obtenerPorId,
-    agregarLibro
+    agregarLibro,
+    eliminarLibro
 };
